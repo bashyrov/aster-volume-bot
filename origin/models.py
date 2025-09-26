@@ -33,6 +33,7 @@ class Wallet(models.Model):
     wallet = models.CharField(max_length=255)
     balance = models.IntegerField(blank=False, null=False)
     apikey = models.ForeignKey(ApiKeys, on_delete=models.CASCADE)
+    is_used = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.wallet} - {self.balance}$"
