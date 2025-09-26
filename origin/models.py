@@ -4,11 +4,18 @@ from django.db import models
 
 class UserProfile(models.Model):
     tg_id = models.CharField(max_length=50, blank=False, null=False)
-    token = models.CharField(max_length=50, blank=False, null=False)
-    leverage = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
         return self.tg_id
+
+
+class Token(models.Model):
+    symbol = models.CharField(max_length=50, blank=False, null=False)
+    leverage = models.IntegerField(blank=False, null=False)
+    price = models.FloatField(blank=False, null=False)
+
+    def __str__(self):
+        return f"{self.symbol} - {self.price} - {self.leverage}x"
 
 
 class Wallet(models.Model):
@@ -19,7 +26,7 @@ class Wallet(models.Model):
         return f"{self.wallet} - {self.balance}"
 
 
-class Api_Keys(models.Model):
+class ApiKeys(models.Model):
     key = models.CharField(max_length=120)
     sec_key = models.CharField(max_length=120)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='api_keys')
