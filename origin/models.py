@@ -32,20 +32,10 @@ class ApiKeys(models.Model):
 class Proxies(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='proxies')
     address = models.CharField(max_length=120)
-    port = models.IntegerField()
-    login = models.CharField(max_length=120)
-    password = models.CharField(max_length=120)
-    formated = models.CharField(max_length=120, editable=False)
-
-    def get_formatted(self) -> str:
-        return f"{self.address}:{self.port}:{self.login}:{self.password}"
-
-    def save(self, *args, **kwargs):
-        self.formated = self.get_formatted()
-        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.formated
+        return self.address
+
 
 #3
 class Wallet(models.Model):
